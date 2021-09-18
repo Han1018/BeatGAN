@@ -1,6 +1,0 @@
-model_checkpoint_path: "/home/salu133445/NAS/salu133445/git/musegan/exp/accompaniment/bass/model/model.ckpt-300450"
-all_model_checkpoint_paths: "/home/salu133445/NAS/salu133445/git/musegan/exp/accompaniment/bass/model/model.ckpt-120000"
-all_model_checkpoint_paths: "/home/salu133445/NAS/salu133445/git/musegan/exp/accompaniment/bass/model/model.ckpt-180000"
-all_model_checkpoint_paths: "/home/salu133445/NAS/salu133445/git/musegan/exp/accompaniment/bass/model/model.ckpt-240000"
-all_model_checkpoint_paths: "/home/salu133445/NAS/salu133445/git/musegan/exp/accompaniment/bass/model/model.ckpt-300000"
-all_model_checkpoint_paths: "/home/salu133445/NAS/salu133445/git/musegan/exp/accompaniment/bass/model/model.ckpt-300450"

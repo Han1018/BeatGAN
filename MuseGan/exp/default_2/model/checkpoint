@@ -1,2 +1,0 @@
-model_checkpoint_path: "~/Documents/musegan/exp/default_2/model/model.ckpt-180000"
-all_model_checkpoint_paths: "~/Documents/musegan/exp/default_2/model/model.ckpt-180000"

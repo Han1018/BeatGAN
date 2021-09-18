@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.22.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.3.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script> 
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script src="./src/js/webaudio-pianoroll.js"></script>
+  <script src="https://g200kg.github.io/webaudio-controls/webaudio-controls.js" ></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <div id="app">
+    <v-app>
+        <template>
+            <div>
+              <v-app-bar 
+                color="teal lighten-3" 
+                :clipped-left="$vuetify.breakpoint.lgAndUp"
+                app
+              >
+          
+                <v-toolbar-title
+                  style="width: 430px"
+                >
+                  <a href="/" class="white--text" style="text-decoration: none"><v-icon>mdi-music-circle</v-icon>&nbsp;Noname</a>
+                </v-toolbar-title>
+                
+                
+              </v-app-bar>
+              <v-content>
+                <v-bottom-navigation
+                  :value="activeBtn"
+                  color="primary"
+                  grow
+                >
+                  <v-btn href="./index.html">
+                    <span>基本曲風生成</span>
+          
+                    <v-icon>mdi-music-note</v-icon>
+                  </v-btn>
+          
+                  <v-btn href="./player_test.html">
+                    <span>樂曲伴奏生成</span>
+          
+                    <v-icon>mdi-heart</v-icon>
+                  </v-btn>
+          
+                </v-bottom-navigation>
+              </v-content>
+              <!--div style="background-color:rgb(234, 233, 229)">
+                <router-view/>
+              </div-->
+              <div >
+                  
+                  <v-container fluid>
+                    <v-layout align-content-center justify-center>
+                      <v-card width="50%" height="100%">
+                          <v-app-bar
+                          color="deep-purple accent-4"
+                          dense
+                          dark
+                          >
+                          
+                          <v-toolbar-title>MIDI PIANO ROLL</v-toolbar-title>
+                          
+                          </v-app-bar>
+                          <v-container>
+                          <div class="row mb-1 mt-1 d-flex justify-center">
+                              
+                              <v-btn 
+                              onclick="Play()" 
+                              rounded
+                              v-on:click="testt()"
+                              class="ma-2 "
+                              style="align-self:center"
+                              >Play
+                              </v-btn>
+
+                              <v-btn onclick="document.getElementById('proll').stop()"
+                              rounded
+                              class="ma-2 "
+                              style="align-self:center"
+                              >Stop
+                              </v-btn>
+
+                              <v-btn onclick="document.getElementById('mml').value=(document.getElementById('proll').getMMLString())"
+                              rounded
+                              class="ma-2 "
+                              style="align-self:center"
+                              >getMMLString
+                              </v-btn>
+                               
+                              <v-btn 
+                                rounded 
+                                @click="test()"
+                                class="ma-2 "
+                                style="align-self:center"
+                              >
+                                getSequence
+                              </v-btn>
+                              
+                          </div>
+                          <v-divider ></v-divider>
+                          <div class="mt-5 d-flex justify-center">
+                            <webaudio-pianoroll
+                              id="proll"
+                              editmode="gridmono"
+                              grid="1"
+                              wheelzoom="1"
+                              xscroll="1"
+                              collt="rgba(255,255,255,0.7)"
+                              coldk="rgba(200,200,200,0.7)"
+                            ></webaudio-pianoroll>
+                          </div>
+                          <textarea id="mml" rows="10" cols="88"></textarea>
+                          <span style="color: rgba(0%, 0%, 0%, 70%);">或直接上傳midi檔</span>
+                          <v-divider ></v-divider>
+                          <v-card class="mt-3">
+                            <form id="uploadForm">
+                              <input name="file" id="file" type="file" />
+                            </form>
+                          </v-card>
+                      
+                          </v-container>
+                      </v-card>
+                    </v-layout>
+                    
+                  </v-container>
+                  
+              </div>
+              <v-footer
+                :padless="true"
+              >
+                <v-card
+                  flat
+                  tile
+                  width="100%"
+                  class="secondary white--text text-center"
+                >
+                  <v-card-text>
+                    <v-btn
+                      class="mx-4 white--text"
+                      icon
+                    >
+                      <v-icon size="24px">mdi-home</v-icon>
+                    </v-btn>
+                    <v-btn
+                      class="mx-4 white--text"
+                      icon
+                    >
+                      <v-icon size="24px">mdi-email</v-icon>
+                    </v-btn>
+                    <v-btn
+                      class="mx-4 white--text"
+                      icon
+                    >
+                      <v-icon size="24px">mdi-calendar</v-icon>
+                    </v-btn>
+                     <v-btn
+                      class="mx-4 white--text"
+                      icon
+                    >
+                      <v-icon size="24px">mdi-delete</v-icon>
+                    </v-btn>
+          
+                  </v-card-text>
+          
+                  <v-card-text class="white--text pt-0">
+                    Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus.
+                  </v-card-text>
+          
+                  <v-divider></v-divider>
+          
+                  <v-card-text class="white--text">
+                    {{ new Date().getFullYear() }} — <strong>Noname</strong>
+                  </v-card-text>
+                </v-card>
+              </v-footer>
+            </div>
+        </template>
+    </v-app>
+  </div>
+
+  <script src="./src/js/synthesis.js" type="module">
+    import synthesisjs from "./src/js/synthesis.js"
+  </script>
+  <script
+    type="text/javascript"
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+  ></script>
+  <script>
+    //import player_test from './player_test.html';
+    const player_test1 = { 
+        template: 
+        " <div> player_test </div> "
+    }
+    const music_generate = { template: '<div>music_generate</div>' }
+    
+    
+    const routes = [
+        { path: "/",component: player_test1},
+        { path: "/music_generate", component: music_generate},
+
+    ]
+    
+
+
+    // 3. 创建 router 实例，然后传 `routes` 配置
+    const router = new VueRouter({
+        mode: "history",
+        routes // （缩写）相当于 routes: routes
+    })
+
+
+
+    
+    new Vue({
+      el: '#app',
+      router,
+      vuetify: new Vuetify(),
+      components:[
+         
+      ],
+      data() {
+          return {
+              smf:"",
+          }
+      },
+      
+
+      methods: {
+          test: function(){
+            /*tt = document.getElementById('proll').sequence[0][1]
+            alert(tt)*/
+            str = document.getElementById('proll').getMMLString();
+            smf = synthesisjs.mml2smf(str);
+            alert(smf);
+            const blob = new Blob([smf], { type: 'text/plain' })
+            const a = document.createElement('a')
+            a.href = URL.createObjectURL(blob)
+            a.target = '_blank'
+            a.download = "test.txt"
+            a.click()
+          }
+      },
+    })
+  </script>
+  <script>
+    timebase=16;
+    actx=new AudioContext();
+    osc=actx.createOscillator();
+    gain=actx.createGain();
+    gain.gain.value=0;
+    osc.type="sawtooth";
+    osc.start();
+    osc.connect(gain).connect(actx.destination);
+    
+    function Callback(ev){
+        osc.detune.setValueAtTime((ev.n-69)*100,ev.t);
+        gain.gain.setTargetAtTime(0.5,ev.t,0.005);
+        gain.gain.setTargetAtTime(0,ev.g,0.1);
+    }
+    function Play(){
+        actx.resume();
+        document.getElementById("proll").play(actx,Callback);
+    }
+    function Layout(k){
+        switch(k.id){
+        case "xrange":
+            document.getElementById("proll").xrange=k.value*timebase;
+            break;
+        case "xoffset":
+            document.getElementById("proll").xoffset=k.value*timebase;
+            break;
+        case "yrange":
+            document.getElementById("proll").yrange=k.value;
+            break;
+        case "yoffset":
+            document.getElementById("proll").yoffset=k.value;
+            break;
+        }
+    }
+  </script>
+  
+</body>
+</html>
