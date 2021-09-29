@@ -119,10 +119,21 @@
                           <textarea id="mml" rows="10" cols="88"></textarea>
                           <span style="color: rgba(0%, 0%, 0%, 70%);">或直接上傳midi檔</span>
                           <v-divider ></v-divider>
-                          <v-card class="mt-3">
-                            <form id="uploadForm">
-                              <input name="file" id="file" type="file" />
+                          <v-card class="mt-3 pa-2">
+                            <form id="uploadForm" @change="fileChange">
+                              <input name="file" id="file" type="file"/>
+                              <!--v-btn v-on:click="upload()">upload</v-btn-->
                             </form>
+                            <div class="mt-2 d-flex justify-center align-center">
+                              <midi-player
+                                  :src= url
+                                  sound-font visualizer="#mainVisualizer" id="mainPlayer"
+                              >
+                              </midi-player>
+                            </div>
+                            <midi-visualizer type="piano-roll" id="mainVisualizer" 
+                                :src= url>
+                            </midi-visualizer>
                           </v-card>
                       
                           </v-container>
@@ -227,7 +238,9 @@
       ],
       data() {
           return {
+              files:"",
               smf:"",
+              url:"",
           }
       },
       
@@ -245,7 +258,20 @@
             a.target = '_blank'
             a.download = "test.txt"
             a.click()
-          }
+          },
+          
+          fileChange(e) {
+            this.files = e.target.files[0] //放進上傳的檔案
+            const bb = new Blob([this.files])
+            this.url = URL.createObjectURL(bb)
+          },
+
+          /*upload: function(){
+            alert("12356")
+            const fd = new Blob([this.files])
+            this.url = URL.createObjectURL(fd)
+            alert("suss")
+          }*/
       },
     })
   </script>

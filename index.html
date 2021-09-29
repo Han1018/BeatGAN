@@ -9,169 +9,144 @@
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  
-  
-  
+  <script type='text/javascript' src='./src/js/jquery.particleground.js'></script>
+  <script type='text/javascript' src='./src/js/sparticles.min.js'></script>
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body>
+  
   <div id="app">
     <v-app>
         <template>
-            <div>
-              <v-app-bar 
-                color="teal lighten-3" 
-                :clipped-left="$vuetify.breakpoint.lgAndUp"
-                app
+          <div class="sparticles-container" style="position: relative;width: 100%; height: 60rem;  max-height: 900px;">
+            <v-app-bar 
+              color="teal lighten-3" 
+              :clipped-left="$vuetify.breakpoint.lgAndUp"
+              app
+              
+            >
+        
+              <v-toolbar-title
+                style="width: 430px"
               >
-          
-                <v-toolbar-title
-                  style="width: 430px"
-                >
-                  <a href="/" class="white--text" style="text-decoration: none"><v-icon>mdi-music-circle</v-icon>&nbsp;Noname</a>
-                </v-toolbar-title>
-                
-                
-              </v-app-bar>
-              <v-content>
-                <v-bottom-navigation
-                  :value="activeBtn"
-                  color="primary"
-                  grow
-                >
-                  <v-btn href="./index.html">
-                    <span>{{url}}</span>
-          
-                    <v-icon>mdi-music-note</v-icon>
-                  </v-btn>
-          
-                  <v-btn href="./player_test.html">
-                    <span></span>
-          
-                    <v-icon>mdi-heart</v-icon>
-                  </v-btn>
-          
-                </v-bottom-navigation>
-              </v-content>
-              <!--div style="background-color:rgb(234, 233, 229)">
-                <router-view/>
-              </div-->
-              <div >
+                <a href="/" class="white--text" style="text-decoration: none"><v-icon>mdi-music-circle</v-icon>&nbsp;Noname</a>
+              </v-toolbar-title>
+              
+              
+            </v-app-bar>
+            <v-content>
+              <v-bottom-navigation
+                :value="activeBtn"
+                color="primary"
+                grow
+              >
+                <v-btn href="./index.html">
+                  <span>{{url}}</span>
+        
+                  <v-icon>mdi-music-note</v-icon>
+                </v-btn>
+        
+                <v-btn href="./player_test.html">
+                  <span></span>
+        
+                  <v-icon>mdi-heart</v-icon>
+                </v-btn>
+        
+              </v-bottom-navigation>
+            </v-content>
+            <!--div style="background-color:rgb(234, 233, 229)">
+              <router-view/>
+            </div-->
+            
+            <div >
+              <v-layout align-content-center justify-center>
+                <v-card width="60%" style="position: absolute; left: 20%; margin-top: 2rem;">
+                  <v-app-bar
+                  color="deep-purple accent-4"
+                  dense
+                  dark
+                  >
                   
-                  <v-container fluid>
-                    <v-layout align-content-center justify-center>
-                        <v-card width="60%" height="100%">
-                            <v-app-bar
-                            color="deep-purple accent-4"
+                  <v-toolbar-title>{{smf}}</v-toolbar-title>
+                  
+                  </v-app-bar>
+                  <v-container>
+                    <div class="row mb-3 d-flex justify-center">
+                        
+                        <span class="ma-1 mt-5">MODEL: </span>
+                        
+                        <v-col sm="5" class="pa-0"> 
+                        <v-select
+                            v-model="se"
+                            :items="items"
+                            item-text="genre"
+                            item-value="id"
+                            @change="select(se.id)"
+                            label="Solo field"
+                            return-object
+                            solo
                             dense
-                            dark
-                            >
+                            class="mt-3 mr-2 ml-2 mb-n5 pa-0"
+                        ></v-select>
+                        </v-col>  
+                        <v-btn 
+                            rounded 
+                            v-on:click="generate()"
+                            class="ma-2 "
+                            style="align-self:center"
                             
-                            <v-toolbar-title>{{smf}}</v-toolbar-title>
-                            
-                            </v-app-bar>
-                            <v-container>
-                            <div class="row mb-3 d-flex justify-center">
-                                
-                                <span class="ma-1 mt-5">MODEL: </span>
-                                
-                                <v-col sm="5" class="pa-0"> 
-                                <v-select
-                                    :items="items"
-                                    label="Solo field"
-                                    solo
-                                    dense
-                                    class="mt-3 mr-2 ml-2 mb-n5 pa-0"
-                                ></v-select>
-                                </v-col>  
-                                <v-btn 
-                                    rounded 
-                                    v-on:click="generate()"
-                                    class="ma-2 "
-                                    style="align-self:center"
-                                    
-                                >
-                                    Generate
-                                </v-btn>
-                                
-                            </div>
-                            <v-divider ></v-divider>
-                            <div class="mt-2 d-flex justify-center align-center">
-                                <midi-player
-                                    :src= url
-                                    sound-font visualizer="#mainVisualizer" id="mainPlayer"
-                                >
-                                </midi-player>
-                            </div>
-                                <midi-visualizer type="piano-roll" id="mainVisualizer" 
-                                    :src= url>
-                                </midi-visualizer>
-                            
-                            </v-container>
-                        </v-card>
-                    </v-layout>
-                  </v-container>
+                        >
+                            Generate
+                        </v-btn>
+                        
+                    </div>
+                    <v-divider ></v-divider>
+                    <div class="mt-2 d-flex justify-center align-center">
+                      <midi-player
+                          :src= url
+                          sound-font visualizer="#mainVisualizer" id="mainPlayer"
+                      >
+                      </midi-player>
+                    </div>
+                    <midi-visualizer type="piano-roll" id="mainVisualizer" 
+                        :src= url>
+                    </midi-visualizer>
                   
-              </div>
-              <v-footer
-                :padless="true"
-              >
-                <v-card
-                  flat
-                  tile
-                  width="100%"
-                  class="secondary white--text text-center"
-                >
-                  <v-card-text>
-                    <v-btn
-                      class="mx-4 white--text"
-                      icon
-                    >
-                      <v-icon size="24px">mdi-home</v-icon>
-                    </v-btn>
-                    <v-btn
-                      class="mx-4 white--text"
-                      icon
-                    >
-                      <v-icon size="24px">mdi-email</v-icon>
-                    </v-btn>
-                    <v-btn
-                      class="mx-4 white--text"
-                      icon
-                    >
-                      <v-icon size="24px">mdi-calendar</v-icon>
-                    </v-btn>
-                     <v-btn
-                      class="mx-4 white--text"
-                      icon
-                    >
-                      <v-icon size="24px">mdi-delete</v-icon>
-                    </v-btn>
-          
-                  </v-card-text>
-          
-                  <v-card-text class="white--text pt-0">
-                    Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus.
-                  </v-card-text>
-          
-                  <v-divider></v-divider>
-          
-                  <v-card-text class="white--text">
-                    {{ new Date().getFullYear() }} — <strong>Noname</strong>
-                  </v-card-text>
+                  </v-container>
                 </v-card>
-              </v-footer>
+              </v-layout>
             </div>
+            
+          </div>
+          <v-footer
+              :padless="true"
+              style="position: absolute; bottom: -8rem;"
+          >
+            <v-card
+              flat
+              tile
+              width="100%"
+              class="secondary white--text text-center"
+            >
+        
+              <v-card-text class="white--text pt-0">
+                Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus.
+              </v-card-text>
+      
+              <v-divider></v-divider>
+      
+              <v-card-text class="white--text">
+                {{ new Date().getFullYear() }} — <strong>Noname</strong>
+              </v-card-text>
+            </v-card>
+          </v-footer>
         </template>
     </v-app>
   </div>
 
 
-  <script src="./synthesis.js" type="module">
-    import synthesisjs from "./synthesis.js"
-    
-  </script>
+
   <script>
     //import player_test from './player_test.html';
     const player_test1 = { 
@@ -206,15 +181,18 @@
       ],
       data() {
           return {
-            items:['rock & Pop', 'Blue & Jezz', 'Country', 'metal'],
-            url: "./5454.mid",
+            se: {id:0, genre: 'rock & Pop'},
+            items:[{id:0, genre: 'rock & Pop'}, {id:1, genre: 'Blue & Jezz'}, {id:2, genre: 'Country'}, {id:3, genre: 'metal'}],
+            url: "./test.mid",
             smf: ""
           }
       },
       
 
       methods: {
-
+        select: function(val){
+          alert(val)
+        },
 
 
         generate: function(){
@@ -256,7 +234,47 @@
 
     })
   </script>
-  
-  
+  <script>
+    let container = document.querySelector(".sparticles-container");
+    let mySparticles = new Sparticles( container, {"composition":"source-over",
+      "count":544,
+      "speed":10,
+      "parallax":1,
+      "direction":180,
+      "xVariance":2,
+      "yVariance":2,
+      "rotate":true,
+      "rotation":1,
+      "alphaSpeed":10,
+      "alphaVariance":1,
+      "minAlpha":0,
+      "maxAlpha":1,
+      "minSize":1,
+      "maxSize":32,
+      "style":"fill",
+      "bounce":false,
+      "drift":1,
+      "glow":0,
+      "twinkle":false,
+      "color":["random",
+      "#ffffff"],
+      "shape":"circle",});
+  </script>
+    
+  <style>
+    body { background: transparent; }
+    html{ background-color: black; }
+    .sparticles-container {
+        
+        /**
+        * z-index: -1; this makes the <body> still interactive 
+        * by placing the sparticles behind the content
+        */
+        /*pointer-events: none;*/
+        /*z-index: 0;*/
+        background-color: black;
+    }
+  </style>
+
 </body>
 </html>
