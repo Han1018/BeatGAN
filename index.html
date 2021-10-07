@@ -82,7 +82,7 @@
                             :items="items"
                             item-text="genre"
                             item-value="id"
-                            @change="select(se.id)"
+                            @change="select(selected.id)"
                             label="Solo field"
                             return-object
                             solo
@@ -181,38 +181,45 @@
       ],
       data() {
           return {
-            se: {id:0, genre: 'rock & Pop'},
-            items:[{id:0, genre: 'rock & Pop'}, {id:1, genre: 'Blue & Jezz'}, {id:2, genre: 'Country'}, {id:3, genre: 'metal'}],
+            selected: {id:0, genre: 'rock & Pop'},
+            items: [
+              { id: 0, genre: "rock & Pop" },
+              { id: 1, genre: "Blue & Jezz" },
+              { id: 2, genre: "Country" },
+              { id: 3, genre: "metal" },
+            ],
             url: "./test.mid",
-            smf: ""
+            smf: "",
+            dstyle: 0,
           }
       },
       
 
       methods: {
-        select: function(val){
-          alert(val)
-        },
+        select: function (val) {
+          this.dstyle = val;
 
+        },
 
         generate: function(){
             
-            var bodyFormData = new FormData();
-            //bodyFormData.append('email', this.myAccountId);
-            //bodyFormData.append('password', this.myPassword);
+            //var bodyFormData = new FormData();
+            var style = { genre: this.dstyle };
             var config = {
-                method: 'get',
-                url: 'http://9d1f47828427.ngrok.io',
+                method: 'post',
+                url: 'http://9d1f47828427.ngrok.io/random',
                 headers: {
-                          'Content-Type': "audio/midi",
+                          "Content-Type": "application/json",
                           'Access-Control-Allow-Origin': "*" },
-                //data: bodyFormData,
+                data: style,
                 responseType: 'blob',
                 
             };
             axios(config)
             .then((response) => {
-                this.url = window.URL.createObjectURL(new Blob([response.data], { type: "audio/midi" }))
+                this.url = window.URL.createObjectURL(
+                  new Blob([response.data], { type: "audio/midi" })
+                );
                 /*this.url = window.URL.createObjectURL(new Blob([response.data], { type: response.data.type }));
                 const link = document.createElement('a');
                 link.href = this.url;
