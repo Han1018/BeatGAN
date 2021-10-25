@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.22.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.3.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script> 
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script src="./src/js/webaudio-pianoroll.js"></script>
+  <script src="https://g200kg.github.io/webaudio-controls/webaudio-controls.js" ></script>
+  <script type='text/javascript' src='./src/js/sparticles.min.js'></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <div id="app">
+    <v-app>
+        <template>
+          <v-overlay 
+              :value="overlay"
+          >
+            <v-progress-circular indeterminate size="80">
+              Loading...
+            </v-progress-circular>
+          </v-overlay>
+          <div class="sparticles-container" style="position: relative;width: 100%; height: 60rem;  max-height: 900px;">
+            <v-app-bar 
+              style="background-color: #928490;" 
+              :clipped-left="$vuetify.breakpoint.lgAndUp"
+              app
+              
+            >
+        
+              <v-toolbar-title
+                style="width: 430px"
+              >
+                <a href="/" class="white--text" style="text-decoration: none"><v-icon>mdi-music-circle</v-icon>&nbsp;多序列音樂生成平台</a>
+              </v-toolbar-title>
+              
+              
+            </v-app-bar>
+            <v-content>
+              <v-bottom-navigation
+                :value="activeBtn"
+                
+                grow
+              >
+                <v-btn href="./index.html">
+                  <span>曲風選擇</span>
+        
+                  <v-icon>mdi-music-note</v-icon>
+                </v-btn>
+        
+                <v-btn href="./Accompaniment_generate.html">
+                  <span>伴奏生成</span>
+        
+                  <v-icon>mdi-heart</v-icon>
+                </v-btn>
+        
+              </v-bottom-navigation>
+            </v-content>
+            
+            <div >
+              <v-layout align-content-center justify-center>
+                <v-card width="60%" style="position: absolute; left: 20%; margin-top: 2rem;">
+                  <v-app-bar
+                  style="background-color: #DBC1AD;"
+                  dense
+                  dark
+                  >
+                  
+                  <v-toolbar-title>MIDI BUILDER (伴奏生成)</v-toolbar-title>
+                  
+                  </v-app-bar>
+                  <v-container>
+                    <div class="row mb-2 mt-1 d-flex justify-center">
+                              
+                      <form id="uploadForm" @change="fileChange">
+                        <input name="file" id="file" type="file"/>
+                        <v-btn class="ml-2" rounded v-on:click="generate()">upload</v-btn>
+                        <v-btn 
+                              v-if="success"
+                              rounded 
+                              v-on:click="download()"
+                              class="ma-2 "
+                              style="align-self:center"
+                              
+                          >
+                              Download
+                          </v-btn>
+                      </form>
+                      
+                    </div>
+                    <v-divider ></v-divider>
+                    <div class="mt-2 d-flex justify-center align-center">
+                      <midi-player
+                          :src= url
+                          sound-font visualizer="#mainVisualizer" id="mainPlayer"
+                      >
+                      </midi-player>
+                    </div>
+                    <midi-visualizer type="piano-roll" id="mainVisualizer" 
+                        :src= url style="margin-bottom: 2rem;">
+                    </midi-visualizer>
+                  </v-container>
+                </v-card>
+              </v-layout>
+            </div>
+            
+          </div>
+          <v-footer
+              padless
+              style="position: absolute; bottom: -8rem; background-color:#928490; width: 100%;"
+            >
+              <v-col
+                class="text-center white--text"
+                cols="12"
+              >
+                {{ new Date().getFullYear() }} — <strong>多序列音樂生成平台</strong>
+              </v-col>
+              
+            </v-footer>
+        </template>
+    </v-app>
+  </div>
+
+  <script src="./src/js/synthesis.js" type="module">
+    import synthesisjs from "./src/js/synthesis.js"
+  </script>
+  <script>
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+      components:[
+         
+      ],
+      data() {
+          return {
+              files:"",
+              smf:"",
+              url:"",
+              overlay: false,
+              success: false,
+          }
+      },
+      
+
+      methods: {
+          
+          fileChange(e) {
+            this.files = e.target.files[0] //放進上傳的檔案
+            const bb = new Blob([this.files])
+          },
+
+          download: function(){
+              const link = document.createElement('a');
+              link.href = this.url;
+              link.setAttribute('download', 'output.mid');
+              document.body.appendChild(link);
+              link.click();
+          },
+
+          generate: function(){
+            this.overlay = true;
+            const formData = new FormData();
+            formData.append('midiFile', this.files);
+
+            var config = {
+                method: 'post',
+                url: 'http://3fca-34-134-65-16.ngrok.io/trackCondition',
+                headers: {
+                          'Content-Type': "multipart/form-data",
+                          'Access-Control-Allow-Origin': "*" },
+                data: formData,
+                responseType: 'blob',
+                
+            };
+            axios(config)
+            .then((response) => {
+                this.url = window.URL.createObjectURL(new Blob([response.data], { type: "audio/midi" }))
+                this.overlay = false;
+                this.success = true;
+                alert("成功");
+
+                
+            })
+            .catch((error) => {
+                this.overlay = false;
+                alert("失敗")
+            });
+            
+          },
+      },
+    })
+  </script>
+  <script>
+    timebase=16;
+    actx=new AudioContext();
+    osc=actx.createOscillator();
+    gain=actx.createGain();
+    gain.gain.value=0;
+    osc.type="sawtooth";
+    osc.start();
+    osc.connect(gain).connect(actx.destination);
+    
+    function Callback(ev){
+        osc.detune.setValueAtTime((ev.n-69)*100,ev.t);
+        gain.gain.setTargetAtTime(0.5,ev.t,0.005);
+        gain.gain.setTargetAtTime(0,ev.g,0.1);
+    }
+    function Play(){
+        actx.resume();
+        document.getElementById("proll").play(actx,Callback);
+    }
+    function Layout(k){
+        switch(k.id){
+        case "xrange":
+            document.getElementById("proll").xrange=k.value*timebase;
+            break;
+        case "xoffset":
+            document.getElementById("proll").xoffset=k.value*timebase;
+            break;
+        case "yrange":
+            document.getElementById("proll").yrange=k.value;
+            break;
+        case "yoffset":
+            document.getElementById("proll").yoffset=k.value;
+            break;
+        }
+    }
+  </script>
+  <script>
+    let container = document.querySelector(".sparticles-container");
+    let mySparticles = new Sparticles( container, {"composition":"source-over",
+      "count":100,
+      "speed":1,
+      "parallax":1,
+      "direction":180,
+      "xVariance":2,
+      "yVariance":2,
+      "rotate":true,
+      "rotation":1,
+      "alphaSpeed":10,
+      "alphaVariance":1,
+      "minAlpha":0,
+      "maxAlpha":1,
+      "minSize":1,
+      "maxSize":20,
+      "style":"fill",
+      "bounce":false,
+      "drift":1,
+      "glow":0,
+      "twinkle":false,
+      "color":["#DBC1AD",
+      "#F3E8EB"],
+      "shape":"circle",});
+  </script>
+    
+  <style>
+    body { background: transparent; }
+    html{ background-color: #433E49; }
+    .sparticles-container {
+        background-color: #433E49;
+    }
+  </style>
+</body>
+</html>
