@@ -9,6 +9,8 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
   <script type='text/javascript' src='./src/js/sparticles.min.js'></script>
+
+  <title>多序列音樂生成平台</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body>
@@ -40,8 +42,6 @@
             </v-app-bar>
             <v-content>
               <v-bottom-navigation
-                :value="activeBtn"
-                
                 grow
               >
                 <v-btn href="./index.html">
@@ -130,9 +130,6 @@
     new Vue({
       el: '#app',
       vuetify: new Vuetify(),
-      components:[
-         
-      ],
       data() {
           return {
               files:"",
@@ -166,7 +163,7 @@
 
             var config = {
                 method: 'post',
-                url: 'http://3fca-34-134-65-16.ngrok.io/trackCondition',
+                url: 'https://3fca-34-134-65-16.ngrok.io/trackCondition',
                 headers: {
                           'Content-Type': "multipart/form-data",
                           'Access-Control-Allow-Origin': "*" },
