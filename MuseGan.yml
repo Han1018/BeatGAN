@@ -1,0 +1,56 @@
+name: MuseGan
+channels:
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1=main
+  - ca-certificates=2021.7.5=h06a4308_1
+  - certifi=2021.5.30=py36h06a4308_0
+  - glob2=0.7=pyhd3eb1b0_0
+  - ld_impl_linux-64=2.33.1=h53a641e_7
+  - libffi=3.3=he6710b0_2
+  - libgcc-ng=9.1.0=hdf63c60_0
+  - libstdcxx-ng=9.1.0=hdf63c60_0
+  - ncurses=6.2=he6710b0_1
+  - openssl=1.1.1k=h27cfd23_0
+  - pathlib=1.0.1=py36_1
+  - pip=21.0.1=py36h06a4308_0
+  - python=3.6.13=hdb3f193_0
+  - readline=8.1=h27cfd23_0
+  - sqlite=3.35.3=hdfb4753_0
+  - tk=8.6.10=hbc83047_0
+  - wheel=0.36.2=pyhd3eb1b0_0
+  - xz=5.2.5=h7b6447c_0
+  - zlib=1.2.11=h7b6447c_3
+  - pip:
+    - absl-py==0.4.1
+    - astor==0.7.1
+    - chardet==4.0.0
+    - filelock==3.0.12
+    - gast==0.2.0
+    - gdown==3.12.2
+    - grpcio==1.14.2
+    - idna==2.10
+    - imageio==2.3.0
+    - markdown==2.6.11
+    - mido==1.2.8
+    - numpy==1.14.5
+    - path==15.1.2
+    - pillow==5.2.0
+    - pretty-midi==0.2.8
+    - protobuf==3.6.1
+    - pypianoroll==0.4.6
+    - pysocks==1.7.1
+    - pyyaml==3.13
+    - requests==2.25.1
+    - scipy==1.1.0
+    - setuptools==39.1.0
+    - sharedarray==3.0.0
+    - six==1.11.0
+    - tensorboard==1.10.0
+    - tensorflow==1.10.0
+    - tensorflow-gpu==1.10.1
+    - termcolor==1.1.0
+    - tqdm==4.59.0
+    - urllib3==1.26.4
+    - werkzeug==0.14.1
+prefix: /home/han/anaconda3/envs/MuseGan
