@@ -1,0 +1,2 @@
+model_checkpoint_path: "/content/drive/MyDrive/museGan/exp/default_2/model/model.ckpt-180000"
+all_model_checkpoint_paths: "/content/drive/MyDrive/museGan/exp/default_2/model/model.ckpt-180000"

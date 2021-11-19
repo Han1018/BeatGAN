@@ -1,0 +1,6 @@
+model_checkpoint_path: "/content/drive/MyDrive/museGan/exp/accompaniment/piano/model/model.ckpt-300450"
+all_model_checkpoint_paths: "/content/drive/MyDrive/museGan/exp/accompaniment/piano/model/model.ckpt-120000"
+all_model_checkpoint_paths: "/content/drive/MyDrive/museGan/exp/accompaniment/piano/model/model.ckpt-180000"
+all_model_checkpoint_paths: "/content/drive/MyDrive/museGan/exp/accompaniment/piano/model/model.ckpt-240000"
+all_model_checkpoint_paths: "/content/drive/MyDrive/museGan/exp/accompaniment/piano/model/model.ckpt-300000"
+all_model_checkpoint_paths: "/content/drive/MyDrive/museGan/exp/accompaniment/piano/model/model.ckpt-300450"
