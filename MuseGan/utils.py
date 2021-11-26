@@ -5,7 +5,7 @@ import shutil
 import logging
 import importlib
 import yaml
-from musegan.config import FILE_LOGLEVEL, FILE_LOG_FORMAT
+from config import FILE_LOGLEVEL, FILE_LOG_FORMAT
 
 # --- Path utilities -----------------------------------------------------------
 def make_sure_path_exists(path):

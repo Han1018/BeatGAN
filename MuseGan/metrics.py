@@ -2,7 +2,7 @@
 import os
 import numpy as np
 import tensorflow as tf
-from musegan.utils import make_sure_path_exists
+from utils import make_sure_path_exists
 
 # --- Utilities ----------------------------------------------------------------
 def to_chroma(pianoroll):

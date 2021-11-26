@@ -3,7 +3,7 @@
 import logging
 import numpy as np
 import tensorflow as tf
-from musegan.config import SHUFFLE_BUFFER_SIZE, PREFETCH_SIZE
+from config import SHUFFLE_BUFFER_SIZE, PREFETCH_SIZE
 LOGGER = logging.getLogger(__name__)
 
 # --- Data loader --------------------------------------------------------------
