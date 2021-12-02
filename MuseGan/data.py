@@ -1,6 +1,7 @@
 """This file contains functions for loading and preprocessing pianoroll data.
 """
 import logging
+import os
 import numpy as np
 import tensorflow as tf
 from config import SHUFFLE_BUFFER_SIZE, PREFETCH_SIZE
@@ -13,9 +14,12 @@ def load_data_from_npy(filename):
 
 def load_data_from_npz(filename):
     """Load and return the training data from a npz file (sparse format)."""
-    with np.load(filename) as f:
+    print("filename:",filename)
+    print(os.path.realpath('.'))
+    with np.load(filename+".npz") as f:
         data = np.zeros(f['shape'], np.bool_)
         data[[x for x in f['nonzero']]] = True
+        print('data.shape =>',data.shape)
     return data
 
 def load_data(data_source, data_filename):
