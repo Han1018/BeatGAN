@@ -62,7 +62,7 @@ def load_params(params_file_path):
 def load_component(component, name, class_name):
     """Load and return component network from file."""
     imported = importlib.import_module(
-        '.'.join(('musegan.presets', component, name)))
+        '.'.join(('presets', component, name)))
     return getattr(imported, class_name)
 
 # --- Logging utilities --------------------------------------------------------
