@@ -38,9 +38,9 @@ $$minmaxV(D,G) = Ex∼pdata(x)[logD(x)]+Ez∼pz(z)[log(1−D(G(z)))]$$
 
 ### 實驗優化
 #### 優化模型 - Wasserstein Distance
-由於音樂軌道間的資訊量大，在初期訓練期間並不穩定，梯度下降的過程緩慢。因此為了讓模型得到更精確真實和生成樣本間的距離，我們引入了Wasserstein Distance。Wasserstein Distance的數學表示式為 :
-$$W( P,Q )=〖inf〗_(γ∼Π( P,Q ))  E_(( x ,y ) ∼ γ) |(| x-y |)|![image](https://user-images.githubusercontent.com/61962782/197693518-2a923916-0c06-489f-b241-77105a21b6f1.png)
-$$  
+由於音樂軌道間的資訊量大，在初期訓練期間並不穩定，梯度下降的過程緩慢。因此為了讓模型得到更精確真實和生成樣本間的距離，我們引入了Wasserstein Distance。Wasserstein Distance的數學表示式為 :  
+W( P,Q )=〖inf〗_(γ∼Π( P,Q ))  E_(( x ,y ) ∼ γ) |(| x-y |)|![image](https://user-images.githubusercontent.com/61962782/197693597-9e1913cd-a5ef-4c87-b5a4-217576fa9b1e.png)
+
 在使用Wasserstein-Distance為計算距離公式後，相比起JS-divergence，可以看到圖6中Wasserstein Distance在初期的訓練表現得比JS-divergence更好。  
 
 ![image](https://user-images.githubusercontent.com/61962782/197692196-9669fa93-275f-4d0e-b081-7d08b19c0e61.png)  
