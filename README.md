@@ -26,7 +26,7 @@ $$minmaxV(D,G) = Ex∼pdata(x)[logD(x)]+Ez∼pz(z)[log(1−D(G(z)))]$$
 
 #### （二）DCGAN
 在DCGAN中，除了將模型中的Generator和Discriminator換成卷積神經網路(CNN)外，DCGAN對卷積神經網路的結構亦做了一些改變。像是取消所有pooling層，G網路中使用轉置卷積(transposed convolutional layer)進行上取樣，D網路中用加入stride的卷積代替pooling等等。此外在D和G中均使用batch normalization，並去掉FC層，使網路變為全卷積網路。圖3為DCGAN中的Generator示意：
-![image align='center'](https://user-images.githubusercontent.com/61962782/197691626-ee58b3b2-c4d9-4f13-a8b6-50158569329d.png)
+![image](https://user-images.githubusercontent.com/61962782/197691626-ee58b3b2-c4d9-4f13-a8b6-50158569329d.png)
 
 #### （三）多序列軌道音樂生成
 音樂生成的部分我們使用的是DCGAN，為了讓不同樂器間能夠維持相同的聽感伴奏並且存在彼此間的和諧，我們將一個隨機向量Z，和樂器間每個生成器中產生的隨機向量Zi同時作為輸入，即Ｇi(Z,Zi)，期望每個樂器的隨機向量可以協同不同音樂的生成，就像作曲家一樣。此外，我們僅使用一個鑑別器來共同評估5個音樂軌道，以此希望模型在各自生成獨立音軌時，亦能用一個整體的概觀使音樂更統一性。
@@ -39,14 +39,14 @@ $$minmaxV(D,G) = Ex∼pdata(x)[logD(x)]+Ez∼pz(z)[log(1−D(G(z)))]$$
 ### 實驗優化
 #### 優化模型 - Wasserstein Distance
 由於音樂軌道間的資訊量大，在初期訓練期間並不穩定，梯度下降的過程緩慢。因此為了讓模型得到更精確真實和生成樣本間的距離，我們引入了Wasserstein Distance。Wasserstein Distance的數學表示式為 :
-W( P,Q )=〖inf〗_(γ∼Π( P,Q ))  E_(( x ,y ) ∼ γ) |(| x-y |)|
+#### $$W( P,Q )=〖inf〗_(γ∼Π( P,Q ))  E_(( x ,y ) ∼ γ) |(| x-y |)|$$
 在使用Wasserstein-Distance為計算距離公式後，相比起JS-divergence，可以看到圖6中Wasserstein Distance在初期的訓練表現得比JS-divergence更好。
-![image](https://user-images.githubusercontent.com/61962782/197692196-9669fa93-275f-4d0e-b081-7d08b19c0e61.png)
-            圖 Polyphonic Rate（紅色:Wass用Wasserstein-Distance 藍色:JS-divergence）
+![image](https://user-images.githubusercontent.com/61962782/197692196-9669fa93-275f-4d0e-b081-7d08b19c0e61.png)  
+圖 Polyphonic Rate（紅色:Wass用Wasserstein-Distance 藍色:JS-divergence）
 #### 參數調整
 Batch Size大小將決定一次訓練的樣本數目，在訓練過程中發現太小的Batch Size會使得模型underfitting難以收斂。為了解決這樣問題，我們適當的調整了Batch Size讓模型能夠找到更多音符間的關係。從圖7可以看到在調整Batch Size後，Model的技術指標相比起調整前鼓組在4/4拍上的比例明顯增加。
-![image](https://user-images.githubusercontent.com/61962782/197692347-f45b4bcb-96ca-4c54-9d17-98bf92119e63.png)
-            圖  Drum in 4/4 Rate（紅色: Old Batch Size 藍色: New Batch Size）
+![image](https://user-images.githubusercontent.com/61962782/197692347-f45b4bcb-96ca-4c54-9d17-98bf92119e63.png)  
+圖 Drum in 4/4 Rate（紅色: Old Batch Size 藍色: New Batch Size）
 
 
 
