@@ -58,7 +58,7 @@ Batch Size大小將決定一次訓練的樣本數目，在訓練過程中發現�
 音樂生成的架構是以人類做音樂Jamming時的角度出發，給定一個特定軌道的序列 y ，藉由給定的音樂軌道序列 y 的生成剩餘的軌道完成歌曲段落。這樣音樂架構類似於隨機生成，不同的是，我們需要先將指定的輸入-音樂軌道序列 y 映射到空間向量 Z 中，並將向量 Z 與剩餘樂器中的隨機向量Zi同時作為輸入生成音樂，即Ｇi(Z,Zi)，以此達到類似於AI協同或輔助人類生成音樂伴奏。
 下圖中可以看到BeatGAN中的核心兩個概念，上半部分為指揮家概念，在生成音樂時同時給予不同樂器相同的輸入，因爲輸入的相同，所以不同樂器間能夠生成和諧的節奏。下半部分為Jamming概念，引入了在真實世界做音樂時，不同樂手是獨立於彼此的音樂，雖然是同一首歌但是卻擁有自己的特色，樂器間相輔相成使音樂更豐富。
 在BeatGAN中，我們結合了指揮家與Jamming兩種樣式，使其擁有和諧節奏的同時能夠在樂器間有自己的特色，獨立於樂器彼此，使其在聽感上更多樣性。
-下圖為 Multi-Track Conditional GAN生成模型架構：(#Model細節已開源在BeatGAN的Repo上，可詳看Model中的Generator&Discriminator)
+下圖為 Multi-Track Conditional GAN生成模型架構：
 
 
 <img width="452" alt="image" src="https://user-images.githubusercontent.com/61962782/197690196-565f7ae5-1003-4bfc-99cf-a6a2b27cc126.png">
