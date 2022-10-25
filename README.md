@@ -22,7 +22,7 @@
 ### 技術與方法
 #### （一）對抗式生成網路
 對抗式生成網絡(GAN)有兩個核心組件：生成器 Generator 和鑑別器 Discriminator。前者將從潛在空間(latent space)中採樣一隨機向量 z 作為輸入，並生成假樣本 G(z)。 Discriminator則是將真實數據 x 或 Generator 生成的假數據作為輸入，學習區分真實或假樣本。在訓練期間，兩個網絡相互對抗、不斷調整參數，最終目的是使其判別網絡無法判斷生成網絡的輸出結果是否真實。GAN的目標函數可以表示為 :   
-minmaxV(D,G) = Ex∼pdata(x)[logD(x)]+Ez∼pz(z)[log(1−D(G(z)))]
+$$minmaxV(D,G) = Ex∼pdata(x)[logD(x)]+Ez∼pz(z)[log(1−D(G(z)))]$$
 
 #### （二）DCGAN
 在DCGAN中，除了將模型中的Generator和Discriminator換成卷積神經網路(CNN)外，DCGAN對卷積神經網路的結構亦做了一些改變。像是取消所有pooling層，G網路中使用轉置卷積(transposed convolutional layer)進行上取樣，D網路中用加入stride的卷積代替pooling等等。此外在D和G中均使用batch normalization，並去掉FC層，使網路變為全卷積網路。圖3為DCGAN中的Generator示意：
