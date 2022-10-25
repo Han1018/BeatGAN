@@ -8,12 +8,12 @@
 
 限制於資料集的特性，音樂性的部分較難掌控。主要是針對現行的模型架構、演算法進行實
 作和優化改善，讓整體的客觀指標能夠有所進步，聽感上能夠更符合直覺。目標為讓DP、ISR上升 (現行演算法分別大約在50%、65%左右)、以及UPC、PR下降(現行演算法大約在45%左右)。從圖1 可以看到音樂訓練的過程，隨著訓練階段逐漸越來越進步，學習到音樂的規則。
-![image align='right'](https://user-images.githubusercontent.com/61962782/197689841-0c7fedaa-f548-468c-a14f-be34cd7e473e.png)
+![image align='center'](https://user-images.githubusercontent.com/61962782/197689841-0c7fedaa-f548-468c-a14f-be34cd7e473e.png)
 
 #### 合併樂曲自動產生伴奏
 主要的輸入和輸出會是以平台的方式呈現，除了可以讓使用者選擇曲風來生成音樂，使用者也可以透過平台上傳樂曲，當接收到樂曲後，後端會將樂曲解析成npz文件，進而分析音符與樂曲進程的排列來生成相關的伴奏(e.g,和弦進程、鼓節奏、鋼琴音等)。
 從圖2可以看到經過訓練後，生成的音樂架構是完整的且有邏輯性、結構。
-<center>![image](https://user-images.githubusercontent.com/61962782/197690015-5fda1390-1974-41aa-8e6c-46b480b529f4.png)  </center>
+![image align='center'](https://user-images.githubusercontent.com/61962782/197690015-5fda1390-1974-41aa-8e6c-46b480b529f4.png) 
             圖2 各樂器軌道音樂波形
 
 ### 成果
