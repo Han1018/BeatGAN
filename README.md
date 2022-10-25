@@ -13,7 +13,8 @@
 #### 合併樂曲自動產生伴奏
 主要的輸入和輸出會是以平台的方式呈現，除了可以讓使用者選擇曲風來生成音樂，使用者也可以透過平台上傳樂曲，當接收到樂曲後，後端會將樂曲解析成npz文件，進而分析音符與樂曲進程的排列來生成相關的伴奏(e.g,和弦進程、鼓節奏、鋼琴音等)。
 從圖2可以看到經過訓練後，生成的音樂架構是完整的且有邏輯性、結構。
-![image align='center'](https://user-images.githubusercontent.com/61962782/197690015-5fda1390-1974-41aa-8e6c-46b480b529f4.png) 
+![image align='center']() 
+<img src='https://user-images.githubusercontent.com/61962782/197690015-5fda1390-1974-41aa-8e6c-46b480b529f4.png' align='center' />  
             圖2 各樂器軌道音樂波形
 
 ### 成果
